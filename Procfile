@@ -1,1 +1,1 @@
-web: lein fig:min && rm -rf resources/public/cljs-out/dev && lein run $PORT
+web: rm -rf resources/public/cljs-out/dev && lein with-profile production trampoline run $PORT
