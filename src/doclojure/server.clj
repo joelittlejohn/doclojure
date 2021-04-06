@@ -4,6 +4,7 @@
             clojail.testers
             [clojure.spec.alpha :as s]
             [ring.adapter.jetty :refer [run-jetty]]
+            [ring.middleware.defaults :refer [secure-site-defaults wrap-defaults]]
             [ring.middleware.json :refer [wrap-json-body]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.util.response :as response]
@@ -78,18 +79,23 @@
       {:status 409})
     {:status 400}))
 
-
-
-
 (def handler
   (-> (bidi.ring/make-handler ["/"
                                [["answer" [[:post execute]]]
-                                ["" [[:get (constantly (response/resource-response "public/index.html"))]]]
+                                ["" [[:get (constantly (-> (response/resource-response "public/index.html")
+                                                           (response/content-type "text/html")
+                                                           (response/charset "utf-8")))]]]
                                 [true (constantly (-> (response/not-found "Not found")
                                                       (response/charset "utf-8")))]]])
       (wrap-json-body {:keywords? true})
       (wrap-resource "public")))
 
+(def secure-handler
+  (-> handler
+      (wrap-defaults (-> secure-site-defaults
+                         (assoc-in [:security :anti-forgery] false)
+                         (assoc :proxy true)))))
+
 (defn -main
   [& args]
-  (run-jetty #'handler {:port (or (some-> args first Integer/valueOf) 9000)}))
+  (run-jetty #'secure-handler {:port (or (some-> args first Integer/valueOf) 9000)}))
