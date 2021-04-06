@@ -7,7 +7,7 @@
 
   Clojure programmers often make a distinction between something that's 'easy' (close-at-hand, similar to other things you already know) and something that's 'simple' (uncomplicated by definition). Complicated things mix concepts together in a way that makes them harder to negotiate, simple things do not. Clojure is designed to be 'simple', which means that at all times the language avoids mixing concepts that should remain separate. It isn't necessarily designed to be 'easy', for instance you might find at first that Clojure is quite different to other languages you've used. But don't worry, you'll quickly find that you appreciate Clojure's simplicity and before you know it you'll find it easy too.
 
-  Throughout this guide you'll find blocks of code that are incomplete and you'll fill in the blanks to produce a result that's `true`. We store progress in your browser.")
+  Throughout this guide you'll find blocks of code that are incomplete and you'll fill in the blanks to produce a result that's `true`. We store progress in your browser so you can leave and return when you like. If you get stuck, try consulting the [clojure.core docs](https://clojuredocs.org/clojure.core) and experimenting at [a REPL](https://www.tryclojure.com/)")
 
 (defn lisp
   "## Lisp
