@@ -33,8 +33,10 @@
                                                       :border-style "solid"
                                                       :min-width "1em"
                                                       :display "inline-block"}]]
-   [:span.progress-done {:color "green"}]
-   [:span.progress-not-done {:color "red"}]
+   [:span.progress-done {:color "green"
+                         :font-size "1.5em"}]
+   [:span.progress-not-done {:color "red"
+                             :font-size "1.5em"}]
    [:span.tick {:color "green"}]
    [:span.cross {:color "red"}]
    [:a.progress {:text-decoration "none"}]

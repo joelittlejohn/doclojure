@@ -97,7 +97,7 @@
                  (conj d [:a.progress {:href (str "#" (name v))}
                           (if (current-result app guide v index)
                             [:span.progress-done "•"]
-                            [:span.progress-not-done "◦"])])) [:div])))
+                            [:span.progress-not-done "•"])])) [:div])))
 
 (defn render-guide
   [app namespace doc vars]
