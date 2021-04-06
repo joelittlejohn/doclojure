@@ -34,7 +34,14 @@
     (let [namespace (symbol guide)
           var (ns-resolve namespace (symbol block))
           question (-> var .invoke (nth index))
-          code (clojail.core/safe-read answer)]
+          code (with-in-str answer
+                 (let [form (clojail.core/safe-read)]
+                   (try
+                     (clojail.core/safe-read)
+                     (throw (IllegalArgumentException. "Too many forms"))
+                     (catch clojure.lang.LispReader$ReaderException _
+                       ;; failed to read another form, so only one was provided
+                       form))))]
       (try
         ((sandbox namespace)
          `(let [~'_ ~code] ~question)
@@ -42,7 +49,8 @@
          {#'*out* (org.apache.commons.io.output.NullOutputStream.)
           #'*err* (org.apache.commons.io.output.NullOutputStream.)})
         (catch Throwable _)))
-    (catch clojure.lang.LispReader$ReaderException _)))
+    (catch clojure.lang.LispReader$ReaderException _)
+    (catch IllegalArgumentException _)))
 
 (doseq [g guides]
   (require g))
