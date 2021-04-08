@@ -39,7 +39,7 @@ In many languages, mathematical operators like `+` and `-` and comparators like 
 (defn values
   "## Values
 
-  What's a value? It may be a word you've never given much thought to, but for Clojure programmers a value is something that has some important characteristics. Values are immutable (they can't be changed 'in-place', instead we must create a new value and leave the old one alone), they have a precise meaning that is not hidden or obscured, so they can easily be compared for equality with other values. Values can't 'do' anything, since they are simple facts that don't have behaviour. We can combine values to make a new value e.g. I have the values `1` and `2`, I can combine these into the list `'(1 2)` and this list is also a value.
+  What's a value? It may be a word you've never given much thought to, but for Clojure programmers and users of other functional programming languages a value is something that has some important characteristics. Values are immutable (they can't be changed 'in-place', instead we must create a new value and leave the old one alone), they have a precise meaning that is not hidden or obscured, so they can easily be compared for equality with other values. Values can't 'do' anything, since they are simple facts that don't have behaviour. We can combine values to make a new value e.g. I have the values `1` and `2`, I can combine these into the list `'(1 2)` and this list is also a value.
 
 Clojure allows us to create values easily. We have:
 

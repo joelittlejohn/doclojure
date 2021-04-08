@@ -26,6 +26,7 @@
           :margin-top "-0.6em"
           :margin-right "0.2em"
           :float "right"
+          :font-family "serif"
           :font-size "2.2em"
           :font-weight "normal"}]]
    [:code [(s/span (s/attr= :contenteditable :true)) {:border-width "0 0 1px 0"
@@ -43,8 +44,8 @@
    [:input.tabstop {:opacity 0
                     :z-index -1
                     :position "absolute"}]
-   [:body.doclojure {:font-size "1.1em"
-                     :font-family "serif"
+   [:body.doclojure {:font-size "1.3em"
+                     :font-family "\"Cormorant Garamond\", serif"
                      :max-width "36em"
                      :margin "0 auto"
                      :margin-bottom "2em"
