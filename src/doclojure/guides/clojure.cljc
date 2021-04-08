@@ -22,7 +22,7 @@ If we take a look at some Clojure code, you can see that when we invoke a functi
 (str \"sling\" \"shot\")
 ```
 
-In languages like JavaScript, C, or Python, when we want to invoke a function we put the function name first then next the list of arguments enclosed in brackets, like `println(\"hello\", \"world\")`. In a Lisp we represent this kind of expression as a list, where the first item in the list is function we want to invoke, and the subsequent items are the arguments to the function, so `(println \"hello\" \"world\")`. Why do this? Representing code as lists of items is a very powerful technique. It means our entire program is simply a list, of lists, of lists, and so on, forming a tree-like structure, and the code we write is really no different to any other data we work with. This means that Lisp code can be easily manipulated just like data (a technique known as meta programming) and it also means that the fundamental syntax of the language is very small, regular and stable.
+  In languages like JavaScript, C, or Python, when we want to invoke a function we put the function name first then next the list of arguments enclosed in brackets, like `println(\"hello\", \"world\")`. In a Lisp we represent this kind of expression as a list, where the first item in the list is the function we want to invoke, and the subsequent items are the arguments to the function, so `(println \"hello\" \"world\")`. Why do this? Representing code as lists of items is a very powerful technique. It means our entire program is simply a list, of lists, of lists, and so on, forming a tree-like structure, and the code we write is really no different to any other data we work with. This means that Lisp code can be easily manipulated just like data (a technique known as meta programming) and it also means that the fundamental syntax of the language is very small, regular and stable.
 
 When you see round brackets in Clojure (that is `(` and `)`) it means a function is being invoked, the name of the function is the first item inside those round brackets and the rest of the items between the brackets are the function arguments. These lists of symbols enclosed in brackets are known as _symbolic expressions_ or _S-expressions_. Clojure also uses square brackets (`[` and `]`) and curly braces (`{` and `}`), but we'll discuss those later.
 
@@ -39,7 +39,7 @@ In many languages, mathematical operators like `+` and `-` and comparators like 
 (defn values
   "## Values
 
-What's a value? It may be a word you've never given much thought to, but for Clojure programmers a value is something that has some important characteristics. Values are immutable (they can't be changed 'in-place', instead we must create a new value and leaving the old one alone), they have a precise meaning that is not hidden or obscured, so they can easily be compared for equality with other values. Values can't 'do' anything, since they are simple facts that don't have behaviour. We can combine values to make a new value e.g. I have the values `1` and `2`, I can combine these into the list `'(1 2)` and this list is also a value.
+  What's a value? It may be a word you've never given much thought to, but for Clojure programmers a value is something that has some important characteristics. Values are immutable (they can't be changed 'in-place', instead we must create a new value and leave the old one alone), they have a precise meaning that is not hidden or obscured, so they can easily be compared for equality with other values. Values can't 'do' anything, since they are simple facts that don't have behaviour. We can combine values to make a new value e.g. I have the values `1` and `2`, I can combine these into the list `'(1 2)` and this list is also a value.
 
 Clojure allows us to create values easily. We have:
 
@@ -74,7 +74,7 @@ And finally `nil`, which is similar to Java and JavaScript's `null` or Ruby's `n
 (defn keywords
   "### Keywords
 
-Keywords are words preceeded by a colon, like `:foo` and `:bar` and `:first-name`. These values are used often in Clojure. Keywords are interned strings, which simply means that two appearances of the same keyword in your program will always refer to the exact same value in memory (which makes them very fast to compare). The Clojure keywords `:foo` and `:foo` will always be equal, so keywords are ideal as a key in an index like a map.
+  Keywords are words preceded by a colon, like `:foo` and `:bar` and `:first-name`. These values are used often in Clojure. Keywords are interned strings, which simply means that two appearances of the same keyword in your program will always refer to the exact same value in memory (which makes them very fast to compare). The Clojure keywords `:foo` and `:foo` will always be equal, so keywords are ideal as a key in an index like a map.
 
 Keywords also have some other handy capabilities. You can execute a keyword as a function and pass in an associative structure like a map as an argument, the keyword will look itself up in the map."
   []
@@ -118,7 +118,7 @@ Clojure uses a sophisticated and highly optimized implementation for its immutab
 
 One other thing to mention about Clojure collections is that they don't have a type parameter - you can place values of different types into the same collection. Clojure lets us create collections using a 'literal' syntax, so we can create collections (with values inside) very easily without having to invoke a series of functions to build them.
 
-Let's look at some of these collections types."
+Let's look at some of these collection types."
   []
   ())
 
@@ -224,7 +224,7 @@ becomes this:
 
 One of the most important abstractions for a Clojure developer is the sequence, or 'seq' for short. We've discussed a number of concrete collection types that Clojure allows you to create, but one of the best things about Clojure is that it provides a large core library of functions that can operate on any of these collections, *because they are all sequences* (internally, they implement the ISeq interface, but that's an implementation detail that Clojure developers never see or really have to think about).
 
-When you want to transform data in Clojure, it's usually helpful to think about your data as a sequence and then try think through the series of sequence transformations that will get you to your destination.
+  When you want to transform data in Clojure, it's usually helpful to think about your data as a sequence and then try to think through the series of sequence transformations that will get you to your destination.
 
 Let's imagine that we want to find the total size of all image files in a directory. In an imperative language, we might implement a solution along these lines:
 
@@ -319,7 +319,7 @@ The `let` receives a vector of bindings, which must be pairs of a symbol (name) 
 
 (defn evaluation-and-returns
   "## Evaluation and return values
-  Clojure code is built by composing expression, and the evaluation of an expression produces a value. In some places though, we want to evaluate more than one expression and we don't care about the values produced, because we don't care about the values produced by those expressions. An simple example of this would be a function that calls `println` many times to print to the console. We can evaluate many expressions, one after the other, using `do`:
+  Clojure code is built by composing expressions, where the evaluation of an expression always produces a value. In some places though, we want to evaluate more than one expression and we don't care about the values produced, because those expressions have an important side-effect but the return value is not important.  A simple example of this would be a function that calls `println` many times to print to the console. We can evaluate many expressions, one after the other, using `do`:
 
 ```clj
 (do (println \"one\")
@@ -391,16 +391,16 @@ So `cond` can manipulate this list of items (just like any other transformation 
 
 We can see how the original `cond` is neater and more convenient than writing our own long chain of `if` expressions. We can also see how `cond` effectively adds a high-level language feature by rewriting your code to use a more primitive existing feature (`if`).
 
-Clojure programmers don't often create new macros of their own. Creating your own macros can lead to programs that are harder to understand, because the actual Clojure code produced by you macro may not be obvious. Macros also bring limitations since a macro is not a first class value like a function, so cannot be passed to other functions or be composed with other functions in the way that all functions can. As a Clojure programmer, you'll regularly use macros from Clojure's core (and other libraries) even if you don't often create your own.
+  Clojure programmers don't often create new macros of their own. Creating your own macros can lead to programs that are harder to understand, because the actual Clojure code produced by your macro may not be obvious. Macros also bring limitations since a macro is not a first class value like a function, so cannot be passed to other functions or be composed with other functions in the way that all functions can. As a Clojure programmer, you'll regularly use macros from Clojure's core (and other libraries) even if you don't often create your own.
 
-One final interesting benefit of macros receiving unevaluated Clojure code is that a macro can be used whenever we need to avoid evaluation. For instance, `cond` would be pretty useless if every argument (every condition and eevery expression) was evaluated to produce results before `cond` was invoked. In the next sections, we'll expand on this and discuss the ways in which Clojure can be 'lazy' and when that's useful."
+One final interesting benefit of macros receiving unevaluated Clojure code is that a macro can be used whenever we need to avoid evaluation. For instance, `cond` would be pretty useless if every argument (every condition and every expression) was evaluated to produce results before `cond` was invoked. In the next sections, we'll expand on this and discuss the ways in which Clojure can be 'lazy' and when that's useful."
   []
   ())
 
 (defn strictness
   "## Strictness, non-strictness and delayed execution
 
-Clojure uses 'strict evaluation' (also known as 'eager evaluation'). This means that the arguments to Clojure functions are always evalutated before the function is called. This is the approach you'll be used to if you're coming from languages such as Java, JavaScript, Python, C# or Scala (and many others).
+Clojure uses 'strict evaluation' (also known as 'eager evaluation'). This means that the arguments to Clojure functions are always evaluated before the function is called. This is the approach you'll be used to if you're coming from languages such as Java, JavaScript, Python, C# or Scala (and many others).
 
 For example, the arguments in expression:
 
@@ -419,7 +419,7 @@ Will be evaluated like this:
 
 This is in contrast to languages which provide non-strict evaluation, where an expression given as an argument can remain unevaluated until (and unless) the function being called requires the value. If the function being called has some conditional logic and executes a path in which some arguments are never used, those arguments are never evaluated. Haskell is one of the few modern languages to provide non-strict evaluation by default.
 
-These rules apply to function calls, but since all code in Clojure is an expression, what do we do if we need to avoid evaluating the arguments to a function before the function is called? For instance, lets take `when` as an example:
+  These rules apply to function calls, but since all code in Clojure is an expression, what do we do if we need to avoid evaluating the arguments to a function before the function is called? For instance, let's take `when` as an example:
 
 ```clj
 (when mycondition
@@ -428,7 +428,7 @@ These rules apply to function calls, but since all code in Clojure is an express
 
 This code would be pretty useless if we evaluated `mycondition` _and_ `(dothis)` before passing the result of both to `when`! That wouldn't be a conditional statement at all.
 
-The answer is that `when` in Clojure isn't a function, it's a macro. Remember, macros receive Clojure code so they have a chance to manipulate or transform it before it is excecuted. If the example above, the `when` macro will receive the code `mycondition (dothis)` and can decide exactly what should be evaluated. So macros are a great way to delay evaluation.
+  The answer is that `when` in Clojure isn't a function, it's a macro. Remember, macros receive Clojure code so they have a chance to manipulate or transform it before it is executed. In the example above, the `when` macro will receive the code `mycondition (dothis)` and can decide exactly what should be evaluated. So macros are a great way to delay evaluation.
 
 Another good example would be the use of macros for logging. If we consider a macro `warn` that receives a body and logs a warning, the macro may evaluate the body (and produce a value to be logged) only when the configured logging level indicates that the value would be logged."
   []
@@ -476,7 +476,7 @@ We can certainly see the three steps more clearly now, and we no longer have to 
      (reduce +))
 ```
 
-The threading macro `->>` will take a value it is given and place it into the last argument position of the next expression. It will rewrite our code so that `files` is inserted into the `(filter jpg?)` expression at the end. Then it will continue to rewrite so that the resultin code is placed into the last position in the next expression, and so on. The result is that we can write our code as a very clear list of steps, but the code is rewritten to produce the correct nesting. We can use the Clojure function `macroexpand` to see what the macro produces:
+  The threading macro `->>` will take a value it is given and place it into the last argument position of the next expression. It will rewrite our code so that `files` is inserted into the `(filter jpg?)` expression at the end. Then it will continue to rewrite so that the resulting code is placed into the last position in the next expression, and so on. The result is that we can write our code as a very clear list of steps, but the code is rewritten to produce the correct nesting. We can use the Clojure function `macroexpand` to see what the macro produces:
 
 ```clj
 (macroexpand '(->> files
@@ -515,7 +515,7 @@ One thing to note, when you include an expression in your threading that doesn't
 (-> 1 inc dec pos?)
 ```
 
-  You may notice that in Clojure functions that operate on sequences tend to receive the seq as the last argument, so we can compose them with `->>`. Functions that transform a single value tend to receive that value as the first argument, so we can compose them with `->`. If you apply these rules of thumb when creating your own functions you'll find that your fuctions fit naturally into threaded operations too."
+  You may notice that in Clojure functions that operate on sequences tend to receive the seq as the last argument, so we can compose them with `->>`. Functions that transform a single value tend to receive that value as the first argument, so we can compose them with `->`. If you apply these rules of thumb when creating your own functions you'll find that your functions fit naturally into threaded operations too."
   []
   '((= (-> 5 inc inc (* 2)) _)
     (= (->> "hello world!" reverse (take 2) reverse first) _)
