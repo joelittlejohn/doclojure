@@ -87,20 +87,23 @@
       (conj doc [:code.clj.questions [:h2 {:id (-> var meta :name)} "?"] exprs [:input.tabstop]])
       doc)))
 
-(defn- render-score
-  [app guide vars]
+(defn render-score
+  [app guide vars links]
   (->> (for [var vars
              [index _] (map-indexed vector (-invoke var))
              :let [block (-> var meta :name)]]
          [block index])
        (reduce (fn [d [v index]]
-                 (conj d [:a.progress {:href (str "#" (name v))}
-                          (if (current-result app guide v index)
-                            [:span.progress-done "•"]
-                            [:span.progress-not-done "•"])])) [:div])))
+                 (let [dot (if (current-result app guide v index)
+                             [:span.progress-done "•"]
+                             [:span.progress-not-done "•"])]
+                   (conj d (if links
+                             [:a.progress {:href (str "#" (name v))} dot]
+                             dot))))
+               [:div.score])))
 
 (defn render-guide
   [app namespace doc vars]
   (let [initial-doc (-> doc markdown/md->hiccup markdown/component)
-        score (render-score app namespace vars)]
+        score (render-score app namespace vars true)]
     (reduce #(conj %1 (render-block app namespace %2)) (conj initial-doc score) vars)))

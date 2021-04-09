@@ -90,11 +90,9 @@
 (def handler
   (-> (bidi.ring/make-handler ["/"
                                [["answer" [[:post execute]]]
-                                ["" [[:get (constantly (-> (response/resource-response "public/index.html")
-                                                           (response/content-type "text/html")
-                                                           (response/charset "utf-8")))]]]
-                                [true (constantly (-> (response/not-found "Not found")
-                                                      (response/charset "utf-8")))]]])
+                                [true [[:get (constantly (-> (response/resource-response "public/index.html")
+                                                             (response/content-type "text/html")
+                                                             (response/charset "utf-8")))]]]]])
       (wrap-json-body {:keywords? true})
       (wrap-resource "public")))
 
