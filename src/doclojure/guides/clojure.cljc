@@ -114,9 +114,9 @@ You'll often find opportunities to take advantage of the truthy/falsey nature of
 
 Clojure provides a variety of collection types that are easy to create and convenient to use. One important feature of these collections is that they are persistent. Once created, a collection is an immutable value that will never change, but if we want to add or remove a value we create a new collection based on the original and the original remains untouched. This means that you can share collections freely without worrying about unexpected modifications (you can even share them between threads). It would be highly inefficient to copy an entire collection each time we made a change, but Clojure implements a technique known as 'structural sharing' which means that most of the existing collection structure is reused as-is. Again, it's safe to reuse because it will never change. Every modification is achieved by creating a new collection.
 
-Clojure uses a sophisticated and highly optimized implementation for its immutable collections based on hash array mapped tries (HAMTs). The HAMT is a widely- branching tree structure that allows fast lookups and efficient storage. This internal tree structure is also ideal to support the process of structural sharing, since entire subtrees can easily be reused when creating a new collection.
+Clojure uses a sophisticated and highly optimized implementation for its immutable collections based on hash array mapped tries (HAMTs). The HAMT is a widely-branching tree structure that allows fast lookups and efficient storage. This internal tree structure is also ideal to support the process of structural sharing, since entire subtrees can easily be reused when creating a new collection.
 
-One other thing to mention about Clojure collections is that they don't have a type parameter - you can place values of different types into the same collection. Clojure lets us create collections using a 'literal' syntax, so we can create collections (with values inside) very easily without having to invoke a series of functions to build them.
+  Something to note about Clojure collections is that they don't have a type parameter - you can place values of different types into the same collection. This means that Clojure's collections are 'heterogeneous'. Also, Clojure lets us create collections using a 'literal' syntax, so we can create new collections (with values inside) very easily without having to invoke a series of functions to build them.
 
 Let's look at some of these collection types."
   []
@@ -515,7 +515,7 @@ One thing to note, when you include an expression in your threading that doesn't
 (-> 1 inc dec pos?)
 ```
 
-  You may notice that in Clojure functions that operate on sequences tend to receive the seq as the last argument, so we can compose them with `->>`. Functions that transform a single value tend to receive that value as the first argument, so we can compose them with `->`. If you apply these rules of thumb when creating your own functions you'll find that your functions fit naturally into threaded operations too."
+You may notice that Clojure functions that operate on sequences tend to receive the seq as the last argument, so we can compose them with `->>`. Functions that transform a single value tend to receive that value as the first argument, so we can compose them with `->`. If you apply these rules of thumb when creating your own functions you'll find that your functions fit naturally into threaded operations too."
   []
   '((= (-> 5 inc inc (* 2)) _)
     (= (->> "hello world!" reverse (take 2) reverse first) _)
