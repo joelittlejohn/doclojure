@@ -87,6 +87,7 @@
    [:style style]
    (case (@app-state :path)
      :index [:div
+             [:span#forkongithub [:a {:href "https://github.com/joelittlejohn/doclojure"} "Contribute"]]
              [:h1 "Do Clojure!"]
              [:p "Interactive guides for Clojure and its ecosystem"]
              [:div#menu
